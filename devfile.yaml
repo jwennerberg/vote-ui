@@ -1,0 +1,38 @@
+apiVersion: 1.0.0
+metadata:
+  generateName: wksp-
+projects:
+  - name: vote-api
+    source:
+      location: 'https://github.com/jwennerberg/vote-api.git'
+      type: git
+  - name: vote-ui
+    source:
+      type: git
+      location: 'https://github.com/jwennerberg/vote-ui.git'
+components:
+  - id: ms-vscode/go/latest
+    memoryLimit: 512Mi
+    type: chePlugin
+    alias: go-plugin
+  - mountSources: true
+    endpoints:
+      - name: 9000/tcp
+        port: 9000
+    memoryLimit: 512Mi
+    type: dockerimage
+    alias: go-cli
+    image: 'registry.redhat.io/codeready-workspaces/stacks-golang-rhel8:2.0'
+    env:
+      - value: '/go:$(CHE_PROJECTS_ROOT)'
+        name: GOPATH
+      - value: /tmp/.cache
+        name: GOCACHE
+  - id: ms-python/python/latest
+    memoryLimit: 512Mi
+    type: chePlugin
+  - mountSources: true
+    memoryLimit: 512Mi
+    type: dockerimage
+    alias: python
+    image: 'registry.redhat.io/codeready-workspaces/stacks-python-rhel8:2.0'
