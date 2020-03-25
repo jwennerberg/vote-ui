@@ -2,12 +2,12 @@ apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
   annotations:
-    app.openshift.io/connects-to: api
+    app.openshift.io/connects-to: vote-api
     app.openshift.io/vcs-uri: https://github.com/jwennerberg/vote-ui.git
   labels:
     app: ui
     app.kubernetes.io/component: ui
-    app.kubernetes.io/instance: ui
+    app.kubernetes.io/instance: vote-ui
     app.kubernetes.io/name: python
     app.kubernetes.io/part-of: vote
     app.openshift.io/runtime: python
